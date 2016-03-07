@@ -1,0 +1,46 @@
+<html>
+    <head>
+        <script src="jquery-1.12.1.min.js"></script>
+        <link href="test.css" rel="stylesheet">
+        <link href="metro.min.css" rel="stylesheet">
+        <script src="metro.min.js"></script>
+        <script src="test.js"></script>
+    </head>
+    <body onload="calculate()">
+        <div class="grid condensed">
+            <div class="row cells12">
+                <div class="cell"></div>
+                <div class="cell colspan10">
+                    <div class="grid">
+                        <div class="row cells12">
+                            <div class="cell colspan3">
+                                <ul class="horizontal-menu">
+                                    <li>
+                                        <a href="#" class="dropdown-toggle">Битви</a>
+                                        <ul class="d-menu" data-role="dropdown">
+                                            <li><a href="#">1</a></li>
+                                            <li><a href="#">2</a></li>
+                                            <li><a href="#">3</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="cell colspan8">
+                                <h2 class="sub-leader" id="name">Назва битви</h2>
+                            </div>
+                        </div>
+                        <div class="row cells12">
+                            <div class="cell colspan3">
+                                Інфа за битву, за конкретний етап 
+                            </div>
+                            <div class="cell colspan8" id="container">
+                                <div class = "animater" id="anime"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="cell"></div>
+            </div>
+        </div>
+    </body>
+</html>
