@@ -27,3 +27,4 @@ function calculate()
     elem = document.getElementById("name");
     console.log(elem.style.fontFamily);
 }
+
