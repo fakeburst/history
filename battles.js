@@ -1,5 +1,4 @@
 function corsun() {
-    $(document).ready(function () {
         var text = ["Корсунська Битва",
                     
         "14 (24) травня 1648 року Хмельницький вислав наперед полк Кривоноса, частину татар із наказом затримати противника до підходу основних сил козацько-татарського війська. <p> Увечері цей полк розпочав дії за Россю у тилу Потоцького. <p> Під Стеблевом, за милю на захід від Корсуня, козаки Кривоноса загатили ріку Рось, щоб полегшити доступ до польського табору.", 
@@ -17,6 +16,7 @@ function corsun() {
         "Битва завершилась близько другої-третьої години дня. <p>Переважна більшість солдат противника загинула. <p>До полону потрапили 80 великих вельмож, разом із гетьманами Потоцьким і Калиновським, 127 офіцерів, 8520 жовнірів.<p> Козаки захопили обоз, 41 гармату, багато вогнепальної і холодної зброї, військові припаси. <p>Татарська кіннота переслідувала втікачів понад 30 км. <p>З усього війська від полону й загибелі врятувалося тільки 1,5 тисячі чоловік."]
         
         var turn = 1;
+        var step = 1;
         var anime = false;
         
         $('#name').html(text[0]);
@@ -54,6 +54,9 @@ function corsun() {
         psheki.position.set(430,375);
         container.addChild(psheki);
         
+        var hmel = false;
+        var osmans = false;
+        
         animate();
         
         function onDown (eventData) {
@@ -65,44 +68,72 @@ function corsun() {
         function animate(){
             requestAnimationFrame(animate);
             renderer.render(stage);
-            if(anime && turn == 1)
+            if(anime)
+            {
+                switch(turn)
                 {
-                    if(linear(kryvonos.position, new PIXI.Point(315, 460))){
-                        var bridge = PIXI.Sprite.fromImage('bridge.png');
-                        bridge.height = 5;
-                        bridge.weight = 10;
-                        bridge.position.set(287,450);
-                        bridge.rotation -= 0.2;
-                        container.addChild(bridge);
-                        turn++;
-                        anime = false;
-                        console.log(kryvonos.position.x + " " + kryvonos.position.y); 
-                    }
-                }
-            if(anime && turn == 2)
-                {
-                    if(linear(kryvonos.position, new PIXI.Point(283,423)) && linearX(kryvonos.position, 235))
+                    case 1:
+                        if(linear(kryvonos.position, new PIXI.Point(315, 460)))
                         {
-                            /*kryvonos.position.speed = undefined;
-                            if (linear(kryvonos.position, new PIXI.Point(235,423)))
-                                {
-                                   console.log(kryvonos);
-                                }
-                            /*else{
-                                var hmel = PIXI.Sprite.fromImage('infantry.png');
-                                if(false)
-                                    {
-
-                                    }
-                                else{
-                                    turn++;  
-                                    anime = false;
-                                    }*/
+                            var bridge = PIXI.Sprite.fromImage('bridge.png');
+                            bridge.height = 5;
+                            bridge.weight = 10;
+                            bridge.position.set(287,450);
+                            bridge.rotation -= 0.2;
+                            container.addChild(bridge);
+                            turn++;
+                            //kryvonos.position.speed = false;
+                            anime = false;
+                            console.log(kryvonos.position.x + " " + kryvonos.position.y); 
                         }
-                    }
+                        break;
+                    case 2:
+                        turn2();
+                        break;
+                }
+            }
         }
-    });
+        
+        function turn2 ()
+        {
+            switch(step)
+            {
+                case 1:
+                    if(linear(kryvonos.position, new PIXI.Point(283,423))){step++;}
+                    break;
+                case 2:
+                    if(linear(kryvonos.position, new PIXI.Point(235,423))){step++; }
+                    break;
+                case 3:
+                    if (!hmel || !osmans){
+                        hmel = new PIXI.Sprite(PIXI.Texture.fromImage('infantry.png'));
+                        hmel.anchor.set(0.5, 0.5);
+                        hmel.scale.set(1.3, 1.3);
+                        hmel.position.set(315, hmel.height/2 + 537);
+                        container.addChild(hmel);
+                    
+                        osmans = new PIXI.Sprite(PIXI.Texture.fromImage('osmans.png'));
+                        osmans.anchor.set(0.5, 0.5);
+                        osmans.scale.set(1.0, 1.0);
+                        osmans.position.set(560, osmans.height + 537);
+                        container.addChild(osmans);
+                        console.log(hmel.position);
+                    }
+                    if(linear(hmel.position, new PIXI.Point(315,305)) || linear(osmans.position, new PIXI.Point(560,485))){step++;}
+                    break;
+                case 4:
+                    if(linear(hmel.position, new PIXI.Point(330, 290))){step++;}
+                    else{
+                        if (hmel.rotation < 0.8)
+                            hmel.rotation +=0.01;
+                    }
+                    break;
+            }
+        }
+       
 }
+
+
 
 function addText(id, q) 
 {
@@ -134,7 +165,12 @@ function linear(vec, target){
         vec.y = vec.y + vec.speed.y;
         res = false;
     }
-
+    
+    if(res)
+    {
+        vec.speed = false;
+    }
+    
     return res;
 }
 
