@@ -90,6 +90,8 @@ function corsun() {
                     case 2:
                         turn2();
                         break;
+                    case 3:
+                        break;
                 }
             }
         }
@@ -126,6 +128,9 @@ function corsun() {
                     else{
                         if (hmel.rotation < 0.8)
                             hmel.rotation +=0.01;
+                        else{
+                            turn++;
+                        }
                     }
                     break;
             }
