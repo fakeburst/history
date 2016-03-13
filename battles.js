@@ -65,6 +65,7 @@ function corsun() {
         
         var hmel = false;
         var osmans = false;
+        var pushkar = false;
         
         animate();
         animate();
@@ -186,9 +187,23 @@ function corsun() {
                     break;
                 case 7:
                     if(linearNormal(kryvonos.position, new PIXI.Point(140, 140), kryvonos)){
-                        step++;
+                        if (kryvonos.rotation < 0)
+                            kryvonos.rotation +=  0.01;
+                        else{
+                            step++;
+                        }
                     }
-                    break;   
+                    break;
+                case 8:
+                    if(!pushkar){
+                        pushkar = new PIXI.Sprite(PIXI.Texture.fromImage('infantry.png'));
+                        pushkar.anchor.set(0.5, 0.5);
+                        pushkar.scale.set(1.3, 1.3);
+                        pushkar.position.set(315, pushkar.height / 2 + 537);
+                        container.addChild(pushkar);
+                    
+                    }
+                    break;  
                 //default:
                 //    alert("Dafaq is going on!?");
 
