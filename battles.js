@@ -130,11 +130,26 @@ function corsun() {
                             hmel.rotation +=0.01;
                         else{
                             turn++;
+                            anime = false;
+                            step = 1;
                         }
                     }
                     break;
             }
         }
+    
+    function turn3()
+    {
+        switch(step)
+            {
+                case 1:
+                    break;
+                case 2:
+                    break;
+                default:
+                    alert("kek");
+            }
+    }
        
 }
 
