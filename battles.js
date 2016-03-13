@@ -211,6 +211,19 @@ function corsun() {
             }
             debug = step;
         }
+    
+    function turn3()
+    {
+        switch(step)
+            {
+                case 1:
+                    break;
+                case 2:
+                    break;
+                default:
+                    alert("kek");
+            }
+    }
        
 }
 
