@@ -1,3 +1,10 @@
+var debug;
+var debug2;
+var debug3;
+var debug4;
+var shaerdGraphics;
+var MEGA_GLOBAL_VAR_SPEED = 75;
+
 function corsun() {
         var text = ["Корсунська Битва",
                     
@@ -32,6 +39,9 @@ function corsun() {
         container.on('touchstart', onDown);
         stage.addChild(container);
 
+        shaerdGraphics = new PIXI.Graphics();
+        stage.addChild(shaerdGraphics);
+
         var bg = PIXI.Sprite.fromImage('map.jpg');
         bg.width = renderer.width;
         bg.height = renderer.height;
@@ -50,7 +60,6 @@ function corsun() {
         psheki.anchor.set(0.5, 0.5);
         psheki.scale.x += 0.3;
         psheki.scale.y += 0.3;
-        psheki.rotation += 1.57;
         psheki.position.set(430,375);
         container.addChild(psheki);
         
@@ -58,11 +67,12 @@ function corsun() {
         var osmans = false;
         
         animate();
+        animate();
+        animate();
         
         function onDown (eventData) {
             addText(turn,text)
             anime = true;
-            animate();
         }
 
         function animate(){
@@ -73,7 +83,7 @@ function corsun() {
                 switch(turn)
                 {
                     case 1:
-                        if(linear(kryvonos.position, new PIXI.Point(315, 460)))
+                        if(linearNormal(kryvonos.position, new PIXI.Point(315, 460), kryvonos, true))
                         {
                             var bridge = PIXI.Sprite.fromImage('bridge.png');
                             bridge.height = 5;
@@ -91,6 +101,7 @@ function corsun() {
                         turn2();
                         break;
                     case 3:
+                        turn3();
                         break;
                 }
             }
@@ -101,17 +112,17 @@ function corsun() {
             switch(step)
             {
                 case 1:
-                    if(linear(kryvonos.position, new PIXI.Point(283,423))){step++;}
+                    if(linearNormal(kryvonos.position, new PIXI.Point(283,423), kryvonos, true)){step++;}
                     break;
                 case 2:
-                    if(linear(kryvonos.position, new PIXI.Point(235,423))){step++; }
+                    if(linearNormal(kryvonos.position, new PIXI.Point(235,423), kryvonos, true)){step++; }
                     break;
                 case 3:
                     if (!hmel || !osmans){
                         hmel = new PIXI.Sprite(PIXI.Texture.fromImage('infantry.png'));
                         hmel.anchor.set(0.5, 0.5);
                         hmel.scale.set(1.3, 1.3);
-                        hmel.position.set(315, hmel.height/2 + 537);
+                        hmel.position.set(315, hmel.height / 2 + 537);
                         container.addChild(hmel);
                     
                         osmans = new PIXI.Sprite(PIXI.Texture.fromImage('osmans.png'));
@@ -121,19 +132,69 @@ function corsun() {
                         container.addChild(osmans);
                         console.log(hmel.position);
                     }
-                    if(linear(hmel.position, new PIXI.Point(315,305)) || linear(osmans.position, new PIXI.Point(560,485))){step++;}
+                    if(linear(hmel.position, new PIXI.Point(315,305)) & linear(osmans.position, new PIXI.Point(560,485))){step++;}
+                    debug4 = hmel;
                     break;
                 case 4:
-                    if(linear(hmel.position, new PIXI.Point(330, 290))){step++;}
-                    else{
+                    if(linearNormal(hmel.position, new PIXI.Point(330, 290), hmel)){
                         if (hmel.rotation < 0.8)
                             hmel.rotation +=0.01;
                         else{
                             turn++;
+                            step = 1;
+                            anime = false;
+                            debug2 = kryvonos;
                         }
                     }
                     break;
+                default:
+                    alert("HOW!?");
             }
+            //hmel - 330, 290
+            //osmans - 560, 485
+            //kryvonos - 235, 423
+        }
+
+        var turn3KryvonosPos = [new PIXI.Point()];
+
+        function turn3(){
+            switch (step){
+                case 1:
+                    if(linearNormal(kryvonos.position, new PIXI.Point(80, 280), kryvonos)){
+                        step++;
+                    }
+                    break;
+                case 2:
+                    if(linearNormal(kryvonos.position, new PIXI.Point(37, 170), kryvonos)){
+                        step++;
+                    }
+                    break;
+                case 3:
+                    if(linearNormal(kryvonos.position, new PIXI.Point(36, 148), kryvonos)){
+                        step++;
+                    }
+                    break;
+                case 4:
+                    if(linearNormal(kryvonos.position, new PIXI.Point(41, 135), kryvonos)){
+                        step++;step++;
+                    }
+                    break;
+                case 6:
+                    if(linearNormal(kryvonos.position, new PIXI.Point(78, 109), kryvonos)){
+                        step++;
+                    }
+                    break;
+                case 7:
+                    if(linearNormal(kryvonos.position, new PIXI.Point(140, 140), kryvonos)){
+                        step++;
+                    }
+                    break;   
+                //default:
+                //    alert("Dafaq is going on!?");
+
+                //kryvonos - 140, 140;
+            }
+            debug = step;
         }
        
 }
@@ -155,18 +216,21 @@ function lerp(vec, target, alpha){
 function linear(vec, target){
     if (!vec.speed){
         vec.speed = new Object();
-        vec.speed.x = -(vec.x - target.x) / 100;
-        vec.speed.y = -(vec.y - target.y) / 100;
+        var length = Math.sqrt((vec.x - target.x) * (vec.x - target.x) + (vec.y - target.y) * (vec.y - target.y));
+        debug3 = length;
+        debug2 = length / 50;
+        vec.speed.x = -(vec.x - target.x) / (100 * length / MEGA_GLOBAL_VAR_SPEED);
+        vec.speed.y = -(vec.y - target.y) / (100 * length / MEGA_GLOBAL_VAR_SPEED);
     }
 
     var res = true;
 
-    if (Math.abs(vec.x - target.x) > 0.1){
+    if (Math.abs(vec.x - target.x) > 1){
         vec.x = vec.x + vec.speed.x;
         res = false;
     }
 
-    if (Math.abs(vec.y - target.y) > 0.1){
+    if (Math.abs(vec.y - target.y) > 1){
         vec.y = vec.y + vec.speed.y;
         res = false;
     }
@@ -188,8 +252,12 @@ function linearX(vec, target){
     var res = true;
 
     if (Math.abs(vec.x - target) > 0.1){
-    vec.x = vec.x + vec.speed.x;
-    res = false;
+        vec.x = vec.x + vec.speed.x;
+        res = false;
+    }
+
+    if(res){
+        vec.speed = false;
     }
 
     return res;
@@ -197,16 +265,68 @@ function linearX(vec, target){
 
 function linearY(vec, target){
     if (!vec.speed){
-    vec.speed = new Object();
-    vec.speed.y = -(vec.y - target) / 100;
+        vec.speed = new Object();
+        vec.speed.y = -(vec.y - target) / 100;
     }
 
     var res = true;
 
     if (Math.abs(vec.y - target) > 0.1){
-    vec.y = vec.y + vec.speed.y;
-    res = false;
+        vec.y = vec.y + vec.speed.y;
+        res = false;
+    }
+
+    if(res){
+        vec.speed = false;
+    }
+
+    return res;
 }
 
-return res;
+function isLeft(a, b, c){
+    /*var graphics = shaerdGraphics;
+        graphics.clear();
+        graphics.beginFill(0xe74c3c); // Red
+        // Draw a circle
+        graphics.drawCircle(c.x, c.y, 3); // drawCircle(x, y, radius)
+        // Applies fill to lines and shapes since the last call to beginFill.
+        graphics.lineWidth = 2;
+        graphics.moveTo(a.x, a.y);
+        graphics.lineTo(b.x, b.y);
+        graphics.endFill();*/
+    ///debug3 = 
+    return ((b.x - a.x)*(c.y - a.y) - (b.y - a.y)*(c.x - a.x)) > 0;
+}
+
+function linearNormal(vec, target, rotator, ppp){
+    if (!rotator.finishedRotation){
+        if (!rotator.startPos){
+            rotator.startPos = new Object();
+            rotator.startPos.x = vec.x;
+            rotator.startPos.y = vec.y;
+        }
+        var p2 = new PIXI.Point(vec.x - rotator.height / 2 * Math.cos(rotator.rotation + Math.PI / 2), vec.y - rotator.height / 2 * Math.sin(rotator.rotation + Math.PI / 2));
+        debug2 = p2;
+        
+
+        if (!ppp){
+            if (!isLeft(rotator.startPos, target, p2)){
+                rotator.rotation += 0.01;
+                return false;
+            }
+        } else {
+            if (isLeft(rotator.startPos, target, p2)){    
+                rotator.rotation -= 0.01;  
+                return false;
+            }
+        }
+
+        rotator.finishedRotation = true;
+    }
+    var r = linear(vec, target);
+    if (r){
+        rotator.finishedRotation = false;
+        rotator.startPos = false;
+    }
+    return r;
 }
