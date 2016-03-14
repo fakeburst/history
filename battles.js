@@ -3,7 +3,7 @@ var debug2;
 var debug3;
 var debug4;
 var shaerdGraphics;
-var MEGA_GLOBAL_VAR_SPEED = 75;
+var MEGA_GLOBAL_VAR_SPEED = 175;
 var startTurn = 1;
 
 function corsun() {
@@ -50,7 +50,7 @@ function corsun() {
     animate();
 
     function onDown(eventData) {
-        addText(turn, text)
+        addText(turn, text);
         anime = true;
     }
 
@@ -78,6 +78,12 @@ function corsun() {
                     break;
                 case 3:
                     turn3();
+                    break;
+                case 4:
+                    turn4();
+                    break;
+                case 5:
+                    turn5();
                     break;
             }
         }
@@ -223,41 +229,57 @@ function corsun() {
                     step++;
                 } else {
                     pushka.alpha = lerp(new PIXI.Point(pushka.alpha, 0), new PIXI.Point(1, 0), 0.03).x;
+                    anime = false;
+                    step = 1;
+                    turn++;
                 }
                 break;
->>>>>>> 9ad587952587acf3219878e6d9dcf394cf576600
                 //default:
                 //    alert("Dafaq is going on!?");
                 //kryvonos - 140, 140;
         }
-<<<<<<< HEAD
-
-    function turn3()
-    {
-        switch(step)
-            {
-                case 1:
-                    break;
-                case 2:
-                    break;
-                default:
-                    alert("kek");
-            }
-    }
-
-}
-
-
-
-function addText(id, q)
-{
-=======
         debug = step;
+    }
+    
+    function turn4(){
+        MEGA_GLOBAL_VAR_SPEED = 50;
+        switch(step){
+            case 1:
+                if(linearNormal(osmans.position, new PIXI.Point(501,384), osmans, true)){
+                    step++;
+                }
+                break;
+            case 2:
+                //pheki - 415, 284;
+                if(linearNormal(psheki.position, new PIXI.Point(415, 284), psheki) & linearNormal(osmans.position, new PIXI.Point(476,279), osmans)){
+                   step++;
+                   }
+                break;
+            case 3:
+                if(linearNormal(psheki.position, new PIXI.Point(382, 224), psheki, true) & linearNormal(cavalry.position, new PIXI.Point(410, 193), cavalry)){
+                    step = 1;
+                    turn++;
+                    anime = false;
+                }
+                break;
+            default:
+                alert("Not good");
+        }
+    }
+    
+    function turn5(){
+        MEGA_GLOBAL_VAR_SPEED = 50;
+        switch(step){
+            case 1:
+                if(linearNormal(psheki.position, new PIXI.Point(343, 193), psheki, true) & linearNormal(osmans.position, new PIXI.Point(390, 230), osmans, true)){
+                    anime = false;
+                }
+                break;
+        }
     }
 }
 
 function addText(id, q) {
->>>>>>> 9ad587952587acf3219878e6d9dcf394cf576600
     $('#text').html(q[id]);
 }
 
@@ -286,47 +308,7 @@ function linear(vec, target) {
         vec.y = vec.y + vec.speed.y;
         res = false;
     }
-<<<<<<< HEAD
 
-    if(res)
-    {
-        vec.speed = false;
-    }
-
-=======
-    if (res) {
-        vec.speed = false;
-    }
->>>>>>> 9ad587952587acf3219878e6d9dcf394cf576600
-    return res;
-}
-
-function linearX(vec, target) {
-    if (!vec.speed) {
-        vec.speed = new Object();
-        vec.speed.x = -(vec.x - target) / 100;
-    }
-    var res = true;
-    if (Math.abs(vec.x - target) > 0.1) {
-        vec.x = vec.x + vec.speed.x;
-        res = false;
-    }
-    if (res) {
-        vec.speed = false;
-    }
-    return res;
-}
-
-function linearY(vec, target) {
-    if (!vec.speed) {
-        vec.speed = new Object();
-        vec.speed.y = -(vec.y - target) / 100;
-    }
-    var res = true;
-    if (Math.abs(vec.y - target) > 0.1) {
-        vec.y = vec.y + vec.speed.y;
-        res = false;
-    }
     if (res) {
         vec.speed = false;
     }
@@ -344,13 +326,8 @@ function isLeft(a, b, c) {
         graphics.moveTo(a.x, a.y);
         graphics.lineTo(b.x, b.y);
         graphics.endFill();*/
-<<<<<<< HEAD
-    ///debug3 =
-    return ((b.x - a.x)*(c.y - a.y) - (b.y - a.y)*(c.x - a.x)) > 0;
-=======
     ///debug3 = 
     return ((b.x - a.x) * (c.y - a.y) - (b.y - a.y) * (c.x - a.x)) > 0;
->>>>>>> 9ad587952587acf3219878e6d9dcf394cf576600
 }
 
 function linearNormal(vec, target, rotator, ppp) {
@@ -362,24 +339,13 @@ function linearNormal(vec, target, rotator, ppp) {
         }
         var p2 = new PIXI.Point(vec.x - rotator.height / 2 * Math.cos(rotator.rotation + Math.PI / 2), vec.y - rotator.height / 2 * Math.sin(rotator.rotation + Math.PI / 2));
         debug2 = p2;
-<<<<<<< HEAD
-
-
-        if (!ppp){
-            if (!isLeft(rotator.startPos, target, p2)){
-=======
         if (!ppp) {
             if (!isLeft(rotator.startPos, target, p2)) {
->>>>>>> 9ad587952587acf3219878e6d9dcf394cf576600
                 rotator.rotation += 0.01;
                 return false;
             }
         } else {
-<<<<<<< HEAD
-            if (isLeft(rotator.startPos, target, p2)){
-=======
             if (isLeft(rotator.startPos, target, p2)) {
->>>>>>> 9ad587952587acf3219878e6d9dcf394cf576600
                 rotator.rotation -= 0.01;
                 return false;
             }
