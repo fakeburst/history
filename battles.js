@@ -383,27 +383,22 @@ function jovti(){
     hmel.position.set(242, 469);
     container.addChild(hmel);
 
-    var hmelO1 = new PIXI.Sprite(PIXI.Texture.fromImage('infantry.png'));
-    hmelO1.anchor.set(0.5, 0.5);
-    hmelO1.scale.set(0.4, 0.4);
-    hmelO1.rotation = -0.44;
-    hmelO1.position.set(210, 443);
-    container.addChild(hmelO1);
+    var hmel1 = new PIXI.Sprite(PIXI.Texture.fromImage('infantry.png'));
+    hmel1.anchor.set(0.5, 0.5);
+    hmel1.scale.set(0.4, 0.4);
+    hmel1.rotation = -0.44;
+    hmel1.position.set(210, 443);
+    container.addChild(hmel1);
 
-    var hmelO2 = new PIXI.Sprite(PIXI.Texture.fromImage('infantry.png'));
-    hmelO2.anchor.set(0.5, 0.5);
-    hmelO2.scale.set(0.4, 0.4);
-    hmelO2.rotation = -0.44;
-    hmelO2.position.set(242, 427);
-    container.addChild(hmelO2);
+    var hmel2 = new PIXI.Sprite(PIXI.Texture.fromImage('infantry.png'));
+    hmel2.anchor.set(0.5, 0.5);
+    hmel2.scale.set(0.4, 0.4);
+    hmel2.rotation = -0.44;
+    hmel2.position.set(242, 427);
+    container.addChild(hmel2);
 
-
-//225, 493
-    
-//1.3 rot  386, 387
     var tatari = new PIXI.Sprite(PIXI.Texture.fromImage('osmans.png'));
     tatari.anchor.set(0.5, 0.5);
-    //tatari.scale.set(0.4, 0.4);
     tatari.rotation = - 1.3;
     tatari.position.set(386, 386);
     container.addChild(tatari);
@@ -461,19 +456,40 @@ function jovti(){
     }
 
     function turn1(){
-        //175, 355
         turn++;
-        anime = false;
     }
 
     function turn2(){
-        turn++;
-        anime = false;
+        if (linearNormal(hmel1.position, new PIXI.Point(187, 395), hmel1) & linearNormal(tatari2.position, new PIXI.Point(217, 378), tatari2)){
+            turn++;
+            anime = false;
+        }
     }
 
     function turn3(){
-        turn++;
-        anime = false;
+        debug = step;
+        switch (step){
+            case 1:
+                MEGA_GLOBAL_VAR_SPEED = 200;
+                if (linear(hmel1.position, new PIXI.Point(166, 374), hmel1) & linear(tatari2.position, new PIXI.Point(197, 361), tatari2)){
+                    step++;
+                    hmel1.rotation -= Math.PI;
+                    tatari2.rotation -= Math.PI;
+                }
+                break;        
+            case 2:
+                MEGA_GLOBAL_VAR_SPEED = 125;
+                if (linear(hmel1.position, new PIXI.Point(187, 395), hmel1) & linear(tatari2.position, new PIXI.Point(217, 378), tatari2)){
+                    step++;
+                }   
+                break;
+            case 3:
+                MEGA_GLOBAL_VAR_SPEED = 50;
+                if (linearNormal(hmel1.position, new PIXI.Point(210, 443), hmel1) & linearNormal(tatari2.position, new PIXI.Point(348, 392), tatari2)){
+                    step++;
+                }
+                break;
+        }
     }
 
     function turn4(){
@@ -543,17 +559,6 @@ function linear(vec, target) {
 }
 
 function isLeft(a, b, c) {
-    /*var graphics = shaerdGraphics;
-        graphics.clear();
-        graphics.beginFill(0xe74c3c); // Red
-        // Draw a circle
-        graphics.drawCircle(c.x, c.y, 3); // drawCircle(x, y, radius)
-        // Applies fill to lines and shapes since the last call to beginFill.
-        graphics.lineWidth = 2;
-        graphics.moveTo(a.x, a.y);
-        graphics.lineTo(b.x, b.y);
-        graphics.endFill();*/
-    ///debug3 = 
     return ((b.x - a.x) * (c.y - a.y) - (b.y - a.y) * (c.x - a.x)) > 0;
 }
 
