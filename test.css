@@ -9,3 +9,12 @@
 .space{
     width: 50px !important;
 }
+
+.grey{
+    height: 100%;
+    background-color: #D0D0D0;
+}
+
+.mygrid{
+    margin: 0px !important;
+}
