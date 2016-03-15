@@ -362,19 +362,20 @@ function jovti(){
     container.addChild(potockij);
 
 
-    var push1 = new PIXI.Sprite(PIXI.Texture.fromImage('pushkar.png'));
+    var push1 = new PIXI.Sprite(PIXI.Texture.fromImage('redpushkar.png'));
     push1.anchor.set(0.5, 0.5);
     push1.scale.set(0.7, 0.7);
-    push1.rotation = Math.PI;
+    push1.rotation = Math.PI - 0.5;
     push1.position.set(138, 380);
     container.addChild(push1);
     
-    var push2 = new PIXI.Sprite(PIXI.Texture.fromImage('pushkar.png'));
+    var push2 = new PIXI.Sprite(PIXI.Texture.fromImage('redpushkar.png'));
     push2.anchor.set(0.5, 0.5);
     push2.scale.set(0.7, 0.7);
-    push2.rotation = Math.PI;
+    push2.rotation = Math.PI - 0.5;
     push2.position.set(215, 340);
     container.addChild(push2);
+    var swap = true;
 
     var hmel = new PIXI.Sprite(PIXI.Texture.fromImage('hmel.png'));
     hmel.anchor.set(0.5, 0.5);
@@ -426,7 +427,7 @@ function jovti(){
     container.addChild(reestr);
 
     function onDown(eventData) {
-        turn = 4;
+        turn = 5;
         anime = true;
         addText(turn, text);
     }
@@ -479,7 +480,7 @@ function jovti(){
         debug = step;
         switch (step){
             case 1:
-                MEGA_GLOBAL_VAR_SPEED = 200;
+                MEGA_GLOBAL_VAR_SPEED = 75;
                 if (linear(hmel1.position, new PIXI.Point(166, 374), hmel1) & linear(tatari2.position, new PIXI.Point(197, 361), tatari2)){
                     step++;
                     hmel1.rotation -= Math.PI;
@@ -487,7 +488,7 @@ function jovti(){
                 }
                 break;        
             case 2:
-                MEGA_GLOBAL_VAR_SPEED = 125;
+                MEGA_GLOBAL_VAR_SPEED = 75;
                 if (linear(hmel1.position, new PIXI.Point(187, 395), hmel1) & linear(tatari2.position, new PIXI.Point(217, 378), tatari2)){
                     step++;
                 }   
@@ -525,9 +526,52 @@ function jovti(){
     }
 
     function turn5(){
-        turn++;
-        step = 1;
-        anime = false;
+        if(swap){
+            container.removeChild(push1);
+            push1 = new PIXI.Sprite(PIXI.Texture.fromImage('pushkar.png'));
+            push1.anchor.set(0.5, 0.5);
+            push1.scale.set(0.7, 0.7);
+            push1.rotation = Math.PI - 0.5;
+            push1.position.set(138, 380);
+            container.addChild(push1);
+
+            container.removeChild(push2);
+            push2 = new PIXI.Sprite(PIXI.Texture.fromImage('pushkar.png'));
+            push2.anchor.set(0.5, 0.5);
+            push2.scale.set(0.7, 0.7);
+            push2.rotation = Math.PI - 0.5;
+            push2.position.set(215, 340);
+            container.addChild(push2);
+            swap = false;
+        }
+        switch(step){
+            case 1:
+                if(linearNormal(push1.position, new PIXI.Point(170, 419), push1) & linearNormal(push2.position, new PIXI.Point(237, 385), push2)){
+                    step++;
+                }
+                break;
+            case 2:
+                if(linearNormal(push1.position, new PIXI.Point(210, 489), push1) & linearNormal(push2.position, new PIXI.Point(170, 419), push2)){
+                    step++;
+                }
+                break;
+            case 3:
+                if(linearNormal(push2.position, new PIXI.Point(200, 472), push2, true)){
+                    step++;
+                }
+                break;
+            case 4:
+                if(push1.rotation > -0.5 & push2.rotation > -0.5){
+                    push1.rotation -= 0.01;
+                    push2.rotation -= 0.01;
+                }
+                else{
+                    turn++;
+                    step = 1;
+                    anime = false;
+                }
+                break;
+        }
     }
 
     function turn6(){
