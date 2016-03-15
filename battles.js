@@ -397,7 +397,7 @@ function linearNormal(vec, target, rotator, ppp) {
             }
         } else {
             if (isLeft(rotator.startPos, target, p2)) {
-                rotator.rotation -= 0.01;
+                rotator.rotation -= 0.01;   
                 return false;
             }
         }
