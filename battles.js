@@ -3,11 +3,21 @@ var debug2;
 var debug3;
 var debug4;
 var shaerdGraphics;
-var MEGA_GLOBAL_VAR_SPEED = 75;
+var MEGA_GLOBAL_VAR_SPEED = 50;
 var startTurn = 1;
+
+function expand(){
+    var width = $("#legend").width();
+    console.log(width);
+    $("#legend").width(width + 50);
+    console.log($("#legend").width());
+}
 
 function corsun() {
     var text = ["Корсунська Битва", "14 (24) травня 1648 року Хмельницький вислав наперед полк Кривоноса, частину татар із наказом затримати противника до підходу основних сил козацько-татарського війська. <p> Увечері цей полк розпочав дії за Россю у тилу Потоцького. <p> Під Стеблевом, за милю на захід від Корсуня, козаки Кривоноса загатили ріку Рось, щоб полегшити доступ до польського табору.", "На світанку 15 (25) травня у район Корсуня підійшла основна козацько-татарська армія і переправилась через Рось, скупчившись у Корсуні.<p> Військо Богдана Хмельницького мало понад 15 тисяч козацької піхоти і кінноти, 26 гармат. <p>З ним були також не менше 3 тисячі татарської кінноти. Довідавшись про підхід Хмельницького, Миколай Потоцький наказав запалити Фільварки. <p>Вогонь швидко перекинувся на Корсунь, випаливши ціле місто, за винятком замку та церкви. <p>Увесь день пройшов у розвідувальних операціях, перестрілках невеликих загонів.<p> Пізно ввечері 15 травня у наметі Миколая Потоцького відбулася військова рада.<p> Серед командування військ Речі Посполитої одностайності не було. <p>Польний гетьман Марцін Калиновський, інші досвідчені воїни радили зміцнити табір і відбиватися; більшість на чолі з Миколаєм Потоцьким, налякані перебільшеними чутками про чисельність татарської кінноти, наполягали на відступі. <p>Зважаючи на перевагу козаків і татар у живій силі, відсутність допомоги та провізії, було вирішено на світанку наступного дня відступити на Богуслав під захистом табору з возів.", "Про наміри ворога Б.Хмельницький дізнався від козака-розвідника Самійла Зарудного, який за його дорученням виконував роль провідника урядових військ. <p>Аби перерізати їм шляхи відступу, був відряджений Корсунський полк на чолі з Кривоносом, який вранці 16 (26) травня зупинився у березовому гаю, в урочищі Горохова Діброва (поблизу с. Виграєва за 8–10 верст від Корсуня) із піхотою й 10 гарматами. <p>Козаки перекопали шлях глибокими ровами, завалили стовбурами дерев, а у хащі поставили гармати.", "На світанку 16 (26) травня, під захистом табору з возів, військо Речі Посполитої рушило з-під Корсуня по Богуславському шляху.<p> Козаки і татари пропустили його, однак супроводжуючи, тиснули з флангів і тилу. <p>Кілька разів зчинялася перестрілка. <p>Опівдні урядові війська, зазнавши відчутних втрат, увійшли у балку, густо зарослу лісом і чагарником. <p>Там командири урядових військ сподівалися зменшити перевагу татарської кавалерії і уберегти себе від стріл та куль.", "Долаючи перешкоди та яруги під постійним обстрілом козаків і татар, сили Речі Посполитої наблизились до пагорбів, між якими проходила широка (близько 3,5 км) і глибока балка.<p> Затиснуте ліворуч болотом, а праворуч кручами, шляхетське військо наткнулося на перекоп та завали на шляху і змушене було зупинитися. <p>Схил балки був таким урвистим, що, під час спроб обійти перешкоду, вози переверталися. Табір утратив порядок. <p>Розгорнути до бою артилерію не вдавалося, бо вози застрягли в багні. <p>Тіснота не дозволила стати до бою кавалерійським хоругвам тилової частини.", "У цю мить, козаки Кривоноса, які засіли в заздалегідь викопаних шанцях, вдарили спереду і з флангів.<p><p> Раптовий вогонь гармат і самопалів спричинив паніку у ворожому війську. <p>З тилу противника атакували козаки самого Хмельницького і татари Тугай-бея.<p> За чотири години армія Речі Посполитої була розгромлена.", "Битва завершилась близько другої-третьої години дня. <p>Переважна більшість солдат противника загинула. <p>До полону потрапили 80 великих вельмож, разом із гетьманами Потоцьким і Калиновським, 127 офіцерів, 8520 жовнірів.<p> Козаки захопили обоз, 41 гармату, багато вогнепальної і холодної зброї, військові припаси. <p>Татарська кіннота переслідувала втікачів понад 30 км. <p>З усього війська від полону й загибелі врятувалося тільки 1,5 тисячі чоловік."]
+    expand();
+    var legend = "<h6><div class=\"row\"><img src=\"hmel.png\"></div><div class=\"row\">Б. Хмельницький</div><p><div class=\"row\"><img src=\"polish-legend.png\"></div><div class=\"row\">М. Потоцький <br> М. Калиновський</div><div class=\"row\"><img src=\"osmans.png\"></div><div class=\"row\">Тугай Бей</div><div class=\"row\"><img src=\"kryvonos.png\"></div><div class=\"row\">М. Кривоніс</div><div class=\"row\"><img src=\"cavalry.png\" width=\"40%\" height=\"40%\"></div><div class=\"row\">І. Богун</div><div class=\"row\"></div></h6>";
+    addLegend(legend);
     var turn = startTurn;
     var step = 1;
     var anime = false;
@@ -27,14 +37,14 @@ function corsun() {
     bg.width = renderer.width;
     bg.height = renderer.height;
     container.addChild(bg);
-    var infantry = PIXI.Texture.fromImage('infantry.png');
+    var infantry = PIXI.Texture.fromImage('kryvonos.png');
     var kryvonos = new PIXI.Sprite(infantry);
     kryvonos.anchor.x = 0.5;
     kryvonos.anchor.y = 0.5;
     kryvonos.scale.set(-0.5, -0.5);
     kryvonos.position.set(333, 518);
     container.addChild(kryvonos);
-    var psheki = new PIXI.Sprite(PIXI.Texture.fromImage('polish-infantry.png'));
+    var psheki = new PIXI.Sprite(PIXI.Texture.fromImage('polish.png'));
     psheki.anchor.set(0.5, 0.5);
     psheki.scale.x += 0.3;
     psheki.scale.y += 0.3;
@@ -50,7 +60,7 @@ function corsun() {
     animate();
 
     function onDown(eventData) {
-        addText(turn, text)
+        addText(turn, text);
         anime = true;
     }
 
@@ -68,7 +78,6 @@ function corsun() {
                         bridge.rotation -= 0.2;
                         container.addChild(bridge);
                         turn++;
-                        //kryvonos.position.speed = false;
                         anime = false;
                         console.log(kryvonos.position.x + " " + kryvonos.position.y);
                     }
@@ -78,6 +87,18 @@ function corsun() {
                     break;
                 case 3:
                     turn3();
+                    break;
+                case 4:
+                    turn4();
+                    break;
+                case 5:
+                    turn5();
+                    break;
+                case 6:
+                    turn6();
+                    break;
+                case 7:
+                    turn7();
                     break;
             }
         }
@@ -97,7 +118,7 @@ function corsun() {
                 break;
             case 3:
                 if (!hmel || !osmans) {
-                    hmel = new PIXI.Sprite(PIXI.Texture.fromImage('infantry.png'));
+                    hmel = new PIXI.Sprite(PIXI.Texture.fromImage('hmel.png'));
                     hmel.anchor.set(0.5, 0.5);
                     hmel.scale.set(1.3, 1.3);
                     hmel.position.set(315, hmel.height / 2 + 537);
@@ -127,9 +148,6 @@ function corsun() {
             default:
                 alert("HOW!?");
         }
-        //hmel - 330, 290
-        //osmans - 560, 485
-        //kryvonos - 235, 423
     }
 
     function turn3() {
@@ -141,21 +159,9 @@ function corsun() {
                 break;
             case 2:
                 if (linearNormal(kryvonos.position, new PIXI.Point(37, 170), kryvonos)) {
-                    //.step++;
                     step = 6;
                 }
                 break;
-            /*case 3:
-                if (linearNormal(kryvonos.position, new PIXI.Point(36, 148), kryvonos)) {
-                    step++;
-                }
-                break;
-            case 4:
-                if (linearNormal(kryvonos.position, new PIXI.Point(41, 135), kryvonos)) {
-                    step++;
-                    step++;
-                }
-                break;*/
             case 6:
                 if (linearNormal(kryvonos.position, new PIXI.Point(78, 109), kryvonos)) {
                     step++;
@@ -163,10 +169,7 @@ function corsun() {
                 break;
             case 7:
                 if (linearNormal(kryvonos.position, new PIXI.Point(140, 140), kryvonos)) {
-                    //if (kryvonos.rotation < 0) kryvonos.rotation += 0.01;
-                    //else {
                     step++;
-                    // }
                 }
                 break;
             case 8:
@@ -223,18 +226,108 @@ function corsun() {
                     step++;
                 } else {
                     pushka.alpha = lerp(new PIXI.Point(pushka.alpha, 0), new PIXI.Point(1, 0), 0.03).x;
+                    anime = false;
+                    step = 1;
+                    turn++;
                 }
                 break;
-                //default:
-                //    alert("Dafaq is going on!?");
-                //kryvonos - 140, 140;
         }
         debug = step;
+    }
+    
+    function turn4(){
+        MEGA_GLOBAL_VAR_SPEED = 50;
+        switch(step){
+            case 1:
+                if(linearNormal(osmans.position, new PIXI.Point(501,384), osmans, true)){
+                    step++;
+                }
+                break;
+            case 2:
+                //pheki - 415, 284;
+                if(linearNormal(psheki.position, new PIXI.Point(415, 284), psheki) & linearNormal(osmans.position, new PIXI.Point(476,279), osmans)){
+                   step++;
+                   }
+                break;
+            case 3:
+                if(linearNormal(psheki.position, new PIXI.Point(382, 224), psheki, true) & linearNormal(cavalry.position, new PIXI.Point(410, 193), cavalry)){
+                    step = 1;
+                    turn++;
+                    anime = false;
+                }
+                break;
+            default:
+                alert("Not good");
+        }
+    }
+    
+    function turn5(){
+        MEGA_GLOBAL_VAR_SPEED = 50;
+        switch(step){
+            case 1:
+                if(linearNormal(psheki.position, new PIXI.Point(343, 193), psheki, true) & linearNormal(osmans.position, new PIXI.Point(390, 230), osmans, true)){
+                    step++;
+                }
+                break;
+            case 2 :
+                if(linearNormal(psheki.position, new PIXI.Point(288,183), psheki, true) & linearNormal(cavalry.position, new PIXI.Point(347,168), cavalry)){
+                   step++;
+                   }
+                break;
+            case 3:
+                if(linearNormal(psheki.position, new PIXI.Point(243, 216), psheki, true)){
+                    step = 1;
+                    turn++;
+                    anime = false;
+                }
+                break;
+            default:    
+                alert("Not good");
+        }
+    }
+    
+    function turn6(){
+        switch(step){
+            case 1:
+                if(linearNormal(hmel.position, new PIXI.Point(288,318), hmel)){
+                    step++;                
+                }
+                break;
+            case 2:
+                if(linearNormal(hmel.position, new PIXI.Point(197,282), hmel) & linearNormal(osmans.position, new PIXI.Point(328,186), osmans, true) & linearNormal(cavalry.position, new PIXI.Point(259,167), cavalry)){
+                    step++;
+                }
+                break;
+            case 3:
+                if(linearNormal(hmel.position, new PIXI.Point(205,267), hmel, true) & linearNormal(kryvonos.position, new PIXI.Point(223,184), kryvonos) & linearNormal(cavalry.position, new PIXI.Point(260,173), cavalry, true) & linearNormal(osmans.position, new PIXI.Point(292,187.5), osmans, true)){
+                    anime = false;
+                    turn++;
+                    step = 1;
+                }
+                break;
+            default:
+                alert("Not good");
+        }
+    }
+    
+    function turn7(){
+        switch(step){
+            case 1:
+                psheki.alpha = lerp(new PIXI.Point(psheki.alpha), new PIXI.Point(0,0), 0.01).x;
+                if(psheki.alpha < 0.01){
+                    anime = false;
+                }
+                break;
+        }
     }
 }
 
 function addText(id, q) {
     $('#text').html(q[id]);
+}
+
+function addLegend(q) {
+    $('#legend').html(q);
 }
 
 function lerp(vec, target, alpha) {
@@ -262,38 +355,7 @@ function linear(vec, target) {
         vec.y = vec.y + vec.speed.y;
         res = false;
     }
-    if (res) {
-        vec.speed = false;
-    }
-    return res;
-}
 
-function linearX(vec, target) {
-    if (!vec.speed) {
-        vec.speed = new Object();
-        vec.speed.x = -(vec.x - target) / 100;
-    }
-    var res = true;
-    if (Math.abs(vec.x - target) > 0.1) {
-        vec.x = vec.x + vec.speed.x;
-        res = false;
-    }
-    if (res) {
-        vec.speed = false;
-    }
-    return res;
-}
-
-function linearY(vec, target) {
-    if (!vec.speed) {
-        vec.speed = new Object();
-        vec.speed.y = -(vec.y - target) / 100;
-    }
-    var res = true;
-    if (Math.abs(vec.y - target) > 0.1) {
-        vec.y = vec.y + vec.speed.y;
-        res = false;
-    }
     if (res) {
         vec.speed = false;
     }
