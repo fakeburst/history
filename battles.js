@@ -5,11 +5,15 @@ var debug4;
 var shaerdGraphics;
 var MEGA_GLOBAL_VAR_SPEED = 50;
 var startTurn = 1;
+var legendWidth = false;
 
 function expand(){
     var width = $("#legend").width();
-    console.log(width);
-    $("#legend").width(width + 50);
+    if (!legendWidth){
+        legendWidth = width;
+    }
+    console.log(legendWidth);
+    $("#legend").width(legendWidth + 50);
     console.log($("#legend").width());
 }
 
@@ -324,7 +328,178 @@ function corsun() {
 }
 
 function jovti(){
+    var text = ["Битва під Жовтими Водами","Жопа"];
+    expand();
+    var legend = "<h6><div class=\"row\"><img src=\"hmel.png\"></div><div class=\"row\">Б. Хмельницький</div><p><div class=\"row\"><img src=\"polish-legend.png\"></div><div class=\"row\">М. Потоцький <br> М. Калиновський</div><div class=\"row\"><img src=\"osmans.png\"></div><div class=\"row\">Тугай Бей</div><div class=\"row\"><img src=\"kryvonos.png\"></div><div class=\"row\">М. Кривоніс</div><div class=\"row\"><img src=\"cavalry.png\" width=\"45%\" height=\"45%\"></div><div class=\"row\">І. Богун</div><div class=\"row\"></div></h6>";
+    addLegend(legend);
+    var turn = startTurn;
+    var step = 1;
+    var anime = false;
+    $('#name').html(text[0]);
+    addText(1, text);
+    var renderer = new PIXI.CanvasRenderer(625, 531);
+    $("#container").html(renderer.view);
+    var stage = new PIXI.Container();
+    var container = new PIXI.Container();
+    container.interactive = true;
+    container.on('mousedown', onDown);
+    container.on('touchstart', onDown);
+    stage.addChild(container);
+    shaerdGraphics = new PIXI.Graphics();
+    stage.addChild(shaerdGraphics);
+    var bg = PIXI.Sprite.fromImage('map3.png');
+    bg.width = renderer.width;
+    bg.height = renderer.height;
+    container.addChild(bg);
+    animate();
+    animate();
+    animate();
+
+    var potockij = new PIXI.Sprite(PIXI.Texture.fromImage('polish3.png'));
+    potockij.anchor.set(0.5, 0.5);
+    potockij.position.set(175, 360);
+    potockij.rotation = -0.44;
+    container.addChild(potockij);
+
+
+    var push1 = new PIXI.Sprite(PIXI.Texture.fromImage('pushkar.png'));
+    push1.anchor.set(0.5, 0.5);
+    push1.scale.set(0.7, 0.7);
+    push1.rotation = Math.PI;
+    push1.position.set(138, 380);
+    container.addChild(push1);
     
+    var push2 = new PIXI.Sprite(PIXI.Texture.fromImage('pushkar.png'));
+    push2.anchor.set(0.5, 0.5);
+    push2.scale.set(0.7, 0.7);
+    push2.rotation = Math.PI;
+    push2.position.set(215, 340);
+    container.addChild(push2);
+
+    var hmel = new PIXI.Sprite(PIXI.Texture.fromImage('hmel.png'));
+    hmel.anchor.set(0.5, 0.5);
+    //hmel.scale.set(0.7, 0.7);
+    hmel.rotation = -0.44;
+    hmel.position.set(242, 469);
+    container.addChild(hmel);
+
+    var hmelO1 = new PIXI.Sprite(PIXI.Texture.fromImage('infantry.png'));
+    hmelO1.anchor.set(0.5, 0.5);
+    hmelO1.scale.set(0.4, 0.4);
+    hmelO1.rotation = -0.44;
+    hmelO1.position.set(210, 443);
+    container.addChild(hmelO1);
+
+    var hmelO2 = new PIXI.Sprite(PIXI.Texture.fromImage('infantry.png'));
+    hmelO2.anchor.set(0.5, 0.5);
+    hmelO2.scale.set(0.4, 0.4);
+    hmelO2.rotation = -0.44;
+    hmelO2.position.set(242, 427);
+    container.addChild(hmelO2);
+
+
+//225, 493
+    
+//1.3 rot  386, 387
+    var tatari = new PIXI.Sprite(PIXI.Texture.fromImage('osmans.png'));
+    tatari.anchor.set(0.5, 0.5);
+    //tatari.scale.set(0.4, 0.4);
+    tatari.rotation = - 1.3;
+    tatari.position.set(386, 386);
+    container.addChild(tatari);
+
+    var tatari1 = new PIXI.Sprite(PIXI.Texture.fromImage('osmans.png'));
+    tatari1.anchor.set(0.5, 0.5);
+    tatari1.scale.set(0.4, 0.4);
+    tatari1.rotation = - 1.3;
+    tatari1.position.set(358, 358);
+    container.addChild(tatari1);
+
+    var tatari2 = new PIXI.Sprite(PIXI.Texture.fromImage('osmans.png'));
+    tatari2.anchor.set(0.5, 0.5);
+    tatari2.scale.set(0.4, 0.4);
+    tatari2.rotation = - 1.3;
+    tatari2.position.set(348, 392);
+    container.addChild(tatari2);
+
+    function onDown(eventData) {
+        anime = true;
+        addText(turn, text);
+    }
+
+    function animate() {
+        requestAnimationFrame(animate);
+        renderer.render(stage);
+        if (anime) {
+            switch (turn) {
+                case 1:
+                    turn1();
+                    break;
+                case 2:
+                    turn2();
+                    break;
+                case 3:
+                    turn3();
+                    break;
+                case 4:
+                    turn4();
+                    break;
+                case 5:
+                    turn5();
+                    break;
+                case 6:
+                    turn6();
+                    break;
+                case 7:
+                    turn7();
+                    break;
+                case 8:
+                    turn8();
+                    break;
+            }
+        }
+    }
+
+    function turn1(){
+        //175, 355
+        turn++;
+        anime = false;
+    }
+
+    function turn2(){
+        turn++;
+        anime = false;
+    }
+
+    function turn3(){
+        turn++;
+        anime = false;
+    }
+
+    function turn4(){
+        turn++;
+        anime = false;
+    }
+
+    function turn5(){
+        turn++;
+        anime = false;
+    }
+
+    function turn6(){
+        turn++;
+        anime = false;
+    }
+
+    function turn7(){
+        turn++;
+        anime = false;
+    }
+
+    function turn8(){
+        turn++;
+        anime = false;
+    }
 }
 
 function addText(id, q) {
