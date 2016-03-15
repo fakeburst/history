@@ -322,6 +322,10 @@ function corsun() {
     }
 }
 
+function jovti(){
+    
+}
+
 function addText(id, q) {
     $('#text').html(q[id]);
 }
