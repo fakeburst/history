@@ -5,3 +5,7 @@
   position: absolute;
   background-color: red;
 }
+
+.space{
+    width: 50px !important;
+}
