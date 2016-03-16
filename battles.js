@@ -4,7 +4,7 @@ var debug3;
 var debug4;
 var shaerdGraphics;
 var MEGA_GLOBAL_VAR_SPEED = 50;
-var startTurn = 8;
+var startTurn = 1;
 var legendWidth = false;
 
 function expand(){
@@ -667,7 +667,7 @@ function jovti(){
                 }
                 break;
             case 3:
-                if(linearNormal(hmel1.position, new PIXI.Point(80,360), hmel1, true)){
+                if(linearNormal(hmel1.position, new PIXI.Point(80,360), hmel1)){
                     step++;
                 }
                 break;
@@ -683,7 +683,7 @@ function jovti(){
                 break;
             case 6:
                 if(linearNormal(potockij.position, new PIXI.Point(320,225), potockij) & linearNormal(hmel1.position, new PIXI.Point(380,76), hmel1, true)){
-                    //console.log(potockij.rotation);
+                    push2.rotation = Math.PI;
                     step++;
                 }
                 break;
@@ -744,7 +744,7 @@ function jovti(){
             case 4:
                 if (linearNormal(potockij.position, new PIXI.Point(390, 125), potockij) & 
                     linearNormal(hmel.position, new PIXI.Point(328, 153), hmel) & 
-                    ((tatari1.alpha > 0.95) && linearNormal(tatari1.position, new PIXI.Point(430, 70), tatari1))){
+                    ((tatari1.alpha > 0.95) && linearNormal(tatari1.position, new PIXI.Point(465, 100), tatari1))){
                     if(tatari1.rotation < hmel.rotation){
                         tatari1.rotation += 0.01;
                     } else {
@@ -758,6 +758,13 @@ function jovti(){
                 }
                 if(tatari.rotation > -0.8){
                     tatari.rotation -= 0.01;
+                }
+                break;
+            case 5:
+                potockij.alpha = lerp(new PIXI.Point(potockij.alpha, 0), new PIXI.Point(0, 0), 0.03).x;
+                if(potockij.alpha < 0.03){
+                    potockij.alpha = 0;
+                    step++;
                 }
                 break;
             default:
