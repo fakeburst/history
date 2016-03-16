@@ -435,6 +435,7 @@ function jovti(){
     container.addChild(polyaki);
 
     function onDown(eventData) {
+        //turn = 7;
         anime = true;
         addText(turn, text);
     }
@@ -525,11 +526,29 @@ function jovti(){
                         reestr.rotation -= 0.01;
                     } 
                     else{
-                        turn++;
-                        step = 1;
-                        anime = false;
+                       step++;
                     }
                 }
+                break;
+            case 3:
+                if(linear(reestr.position, hmel.position)){
+                    step++;
+                }
+                break;
+            case 4:
+                reestr.alpha = lerp(new PIXI.Point(reestr.alpha, 0), new PIXI.Point(0, 0), 0.03).x;
+                if(reestr.alpha < 0.01){
+                    turn++;
+                    step = 1;
+                    anime = false;
+                }
+                break;
+        }
+    }
+    
+    function turn45(){
+        switch(step){
+            case 1:
                 break;
         }
     }
@@ -575,6 +594,7 @@ function jovti(){
                     push2.rotation -= 0.01;
                 }
                 else{
+                    swap = true;
                     turn++;
                     step = 1;
                     anime = false;
@@ -634,9 +654,68 @@ function jovti(){
     }
 
     function turn7(){
-        turn++;
-        step = 1;
-        anime = false;
+        switch(step){
+            case 1:
+                if(linearNormal(push2.position, hmel1.position, push2)){
+                    step++;
+                }
+                break;
+            case 2:
+                push2.alpha = lerp(new PIXI.Point(push2.alpha), new PIXI.Point(0,0), 0.03).x;
+                if(push2.alpha < 0.01){
+                    step++;
+                }
+                break;
+            case 3:
+                if(linearNormal(hmel1.position, new PIXI.Point(80,360), hmel1, true)){
+                    step++;
+                }
+                break;
+            case 4:
+                if(linearNormal(hmel1.position,new PIXI.Point(121,243), hmel1)){
+                    step++;
+                }
+                break;
+            case 5:
+                if(linearNormal(hmel1.position, new PIXI.Point(330, 222), hmel1)){
+                    step++;
+                }
+                break;
+            case 6:
+                if(linearNormal(potockij.position, new PIXI.Point(320,225), potockij) & linearNormal(hmel1.position, new PIXI.Point(380,76), hmel1, true)){
+                    //console.log(potockij.rotation);
+                    step++;
+                }
+                break;
+            case 7:
+                if(swap){
+                    push2.position.set(400,69);
+                    push2.alpha = lerp(new PIXI.Point(push2.alpha), new PIXI.Point(1,0), 0.03).x;
+                    if(push2.alpha > 0.95){
+                        swap = false;
+                    }
+                }
+                if(hmel1.rotation > -0.3){
+                    hmel1.rotation -=0.01;
+                }
+                if(linearNormal(hmel2.position, hmel.position, hmel2) & linearNormal(push1.position, hmel.position, push1) & linearNormal(tatari1.position, tatari.position, tatari1)){
+                    step++;
+                }
+                break;
+            case 8:
+                hmel2.alpha = lerp(new PIXI.Point(hmel2.alpha), new PIXI.Point(0,0), 0.01).x;
+                tatari1.alpha = lerp(new PIXI.Point(tatari1.alpha), new PIXI.Point(0,0), 0.01).x;
+                push1.alpha = lerp(new PIXI.Point(push1.alpha), new PIXI.Point(0,0), 0.01).x;
+                if(hmel2.alpha < 0.01){
+                    step++;
+                }
+                break;
+            case 9:
+                turn++;
+                step = 1;
+                anime = false;
+                break;
+        }
     }
 
     function turn8(){
